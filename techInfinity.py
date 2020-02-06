@@ -1,20 +1,24 @@
-from flask import Flask, render_template,url_for
+from flask import Flask, render_template, url_for
+from forms import RegistrationForm, LoginForm
 app = Flask(__name__)
+
+app.config('SECRET_KEY') = '3f9c0663001b3a7effbb942f1485c5b8'
 
 posts = [
     {
         'author': 'Amogh Wagh',
-        'title' : 'Blog Post 1',
-        'content' : 'First Post content',
-        'date_posted' : 'April 20 , 2019'
+        'title': 'Blog Post 1',
+        'content': 'First Post content',
+        'date_posted': 'April 20 , 2019'
     },
-     {
+    {
         'author': 'Jane Doe',
-        'title' : 'Blog Post 2',
-        'content' : 'Second Post content',
-        'date_posted' : 'July 20 , 2019'
+        'title': 'Blog Post 2',
+        'content': 'Second Post content',
+        'date_posted': 'July 20 , 2019'
     }
 ]
+
 
 @app.route("/")
 def home():
@@ -24,6 +28,18 @@ def home():
 @app.route("/about")
 def about():
     return render_template('about.html')
+
+
+@app.route("/register")
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
 
 
 if __name__ == '__main__':
